@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .youtube,
+        .cloudflare {
+            display: none;
+        }
+
+        /* Show the video with the 'visible' class */
+        .youtube.visible,
+        .cloudflare.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+
+        
+
+
+    <video id="sample_video" type="video/mp4"  class="cloudflare" controls width="320" height="240">
+        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4"/>
+    </video>
+    
+    <div id="player"  class="youtube visible"></div>
+    
+    <button onclick="toggle()">Toggle</button>
+    <h1>The two way communication</h1>
+    <p>Message from Flutter: <span id="messageFromFlutter"></span></p>
+    <button onclick="sendMessageToFlutter()">Send Message to Flutter</button>
+
+    <script>
+        // YouTube Player API
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '388',
+                width: '690',
+                videoId: 'ph8hD1V-syo',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // Toggle function
+        function toggle() {
+            const isCloudflare = document.querySelector('.cloudflare');
+            const isYoutube = document.querySelector('.youtube');
+            const playerState = player.getPlayerState();
+            if (playerState === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                
+                isYoutube.classList.remove('visible');
+                isCloudflare.classList.add('visible');
+                $('#sample_video').trigger('play');
+            } else {
+                player.playVideo();
+                isCloudflare.classList.remove('visible');
+                $('#sample_video').trigger('pause');
+                isYoutube.classList.add('visible');
+            }
+        }
+
+        // receive messages from flutter
+        function receiveMessegeFromFlutter(message) {
+            document.getElementById('messageFromFlutter').innerText=message;
+        }
+
+        // send message to flutter
+        function sendMessageToFlutter() {
+            var message='Hello from JavaScript!';
+            messageHandler.postMessage(message);
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src= 
+        "https://code.jquery.com/jquery-3.4.1.min.js"> 
+    </script>
+</body>
+</html>
