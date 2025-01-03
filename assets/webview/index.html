@@ -23,10 +23,10 @@
         
 
 
-    <video id="sample_video" type="video/mp4"  class="cloudflare" controls width="320" height="240">
+    <!-- <video id="sample_video" type="video/mp4"  class="cloudflare" controls width="320" height="240">
         <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4"/>
-    </video>
-    
+    </video> -->
+    <video controls="" autoplay="" name="media"><source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4"></video>
     <div id="player"  class="youtube visible"></div>
     
     <button onclick="toggle()">Toggle</button>
@@ -71,13 +71,13 @@
             }
         }
 
-        // receive messages from flutter
-        function receiveMessegeFromFlutter(message) {
+        // receive messages from react native
+        function receiveMessegeFromReactNative(message) {
             document.getElementById('messageFromFlutter').innerText=message;
         }
 
         // send message to flutter
-        function sendMessageToFlutter() {
+        function sendMessageToReactNative() {
             var message='Hello from JavaScript!';
             messageHandler.postMessage(message);
         }

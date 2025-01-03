@@ -57,7 +57,7 @@ class _MyVideoPageState extends State<MyVideoPage> {
         child: const Icon(Icons.send),
         onPressed: () {
           _webViewController!.runJavaScript(
-              'receiveMessegeFromFlutter("Hello from Flutter");');
+              'receiveMessegeFromFlutter("Hello  Flutter");');
         },
       ),
     );
